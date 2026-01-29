@@ -1,0 +1,56 @@
+From: test@example.com
+To: abc123@localhost
+Subject: Test Email - HTML Sanitization Check
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="boundary123"
+
+--boundary123
+Content-Type: text/plain; charset="utf-8"
+
+This is a test email in plain text.
+
+This email tests:
+- Plain text rendering
+- HTML sanitization
+- XSS prevention
+
+--boundary123
+Content-Type: text/html; charset="utf-8"
+
+<html>
+<head>
+    <title>Test Email</title>
+</head>
+<body>
+    <h1>Test Email</h1>
+    <p>This is a <strong>test email</strong> in HTML.</p>
+    
+    <h2>Safe HTML Elements:</h2>
+    <ul>
+        <li>Bold: <strong>This should work</strong></li>
+        <li>Italic: <em>This should work</em></li>
+        <li>Link: <a href="https://example.com">This should work</a></li>
+    </ul>
+    
+    <h2>XSS Attempts (should be removed):</h2>
+    <script>alert('XSS - This should be removed')</script>
+    <img src="x" onerror="alert('XSS')">
+    <div onclick="alert('XSS')">Click me (onclick should be removed)</div>
+    
+    <h2>Table Test:</h2>
+    <table border="1">
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+        </tr>
+        <tr>
+            <td>Cell 1</td>
+            <td>Cell 2</td>
+        </tr>
+    </table>
+    
+    <p>If you can see this, HTML rendering works! ✅</p>
+</body>
+</html>
+
+--boundary123--

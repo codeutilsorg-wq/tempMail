@@ -1,0 +1,46 @@
+﻿### Functional Requirements
+- ✅ Can generate inbox with custom TTL
+- ✅ Can receive email via SES
+- ✅ Can view email with sanitized HTML
+- ✅ Auto expiry works (DynamoDB TTL)
+- ✅ S3 cleanup works (48h lifecycle)
+- ✅ Rate limiting prevents abuse
+- ✅ Pagination works for 50+ emails
+
+### Performance Requirements
+- ✅ API latency < 500ms (p95)
+- ✅ Email processing < 5 seconds
+- ✅ Frontend loads < 2 seconds
+- ✅ CloudFront cache hit rate > 80%
+
+### Cost Requirements
+- ✅ Monthly cost: 0 – 300
+- ✅ Zero fixed infrastructure cost
+- ✅ Cost monitoring alerts configured
+
+### SEO Requirements
+- ✅ All SEO pages live and indexed
+- ✅ sitemap.xml generated
+- ✅ robots.txt configured
+- ✅ Meta tags on all pages
+- ✅ Structured data implemented
+- ✅ Mobile-responsive design
+- ✅ Page speed score > 90
+
+### Security Requirements
+- ✅ HTTPS enforced
+- ✅ HTML sanitization working
+- ✅ CORS policy configured
+- ✅ Rate limiting active
+- ✅ No sensitive data logged
+
+### Pre-Launch Checklist
+- ✅ DNS records configured
+- ✅ SES domain verified
+- ✅ CloudWatch alarms set
+- ✅ Monitoring dashboard created
+- ✅ Error handling tested
+- ✅ Load testing completed
+- ✅ Security audit passed
+- ✅ Privacy policy published
+- ✅ Terms of service published

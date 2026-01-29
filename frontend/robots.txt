@@ -1,0 +1,11 @@
+# Robots.txt for EasyTempInbox
+# https://www.easytempinbox.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.easytempinbox.com/sitemap.xml
+
+# Crawl-delay (optional, be polite to crawlers)
+Crawl-delay: 1

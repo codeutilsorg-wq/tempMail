@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Free Temporary Email - EasyTempInbox | Disposable Email Address</title>
+    <meta name="title" content="Free Temporary Email - EasyTempInbox | Disposable Email Address">
+    <meta name="description"
+        content="Get a free temporary email address instantly. No signup required. Protect your privacy with disposable emails that auto-delete. Perfect for signups, testing, and avoiding spam.">
+    <meta name="keywords"
+        content="temporary email, temp mail, disposable email, fake email, 10 minute mail, throwaway email, anonymous email, free email">
+    <meta name="author" content="EasyTempInbox">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.easytempinbox.com/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.easytempinbox.com/">
+    <meta property="og:title" content="Free Temporary Email - EasyTempInbox">
+    <meta property="og:description"
+        content="Get a free temporary email address instantly. No signup required. Protect your privacy with disposable emails.">
+    <meta property="og:image" content="https://www.easytempinbox.com/images/og-image.svg">
+    <meta property="og:site_name" content="EasyTempInbox">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.easytempinbox.com/">
+    <meta name="twitter:title" content="Free Temporary Email - EasyTempInbox">
+    <meta name="twitter:description"
+        content="Get a free temporary email address instantly. No signup required. Protect your privacy with disposable emails.">
+    <meta name="twitter:image" content="https://www.easytempinbox.com/images/og-image.svg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "EasyTempInbox",
+        "description": "Free temporary email service. Get disposable email addresses instantly.",
+        "url": "https://www.easytempinbox.com",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Temporary email addresses",
+            "Auto-delete after expiry",
+            "No registration required",
+            "Privacy protection"
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>EasyTempInbox</h1>
+            <p class="tagline">Temporary email, zero hassle</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="generator-section" class="card">
+            <h2>Generate Temporary Email</h2>
+            <p>Get a disposable email address that expires automatically. Perfect for signups, testing, and protecting
+                your privacy.</p>
+
+            <div class="email-display" id="email-display" style="display: none;">
+                <div class="email-address-container">
+                    <input type="text" id="email-address" readonly>
+                    <button id="copy-btn" class="btn-secondary">📋 Copy</button>
+                </div>
+
+                <div class="inbox-info">
+                    <div class="info-item">
+                        <span class="label">Expires in:</span>
+                        <span id="countdown" class="countdown">--:--:--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Emails:</span>
+                        <span id="email-count" class="badge">0</span>
+                    </div>
+                </div>
+
+                <button id="new-email-btn" class="btn-secondary" style="margin-top: 15px;">🔄 Generate New
+                    Email</button>
+            </div>
+
+            <div class="controls">
+                <button id="generate-btn" class="btn-primary">Generate Email Address</button>
+                <div class="ttl-selector" style="display: none;">
+                    <label for="ttl-select">Expiry Time:</label>
+                    <select id="ttl-select">
+                        <option value="600">10 minutes</option>
+                        <option value="1800">30 minutes</option>
+                        <option value="3600" selected>1 hour</option>
+                        <option value="7200">2 hours</option>
+                        <option value="21600">6 hours</option>
+                        <option value="86400">24 hours</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Creating your temporary inbox...</p>
+            </div>
+        </section>
+
+        <section id="inbox-section" class="card" style="display: none;">
+            <div class="section-header">
+                <h2>📬 Inbox</h2>
+                <button id="refresh-btn" class="btn-secondary">🔄 Refresh</button>
+            </div>
+
+            <div id="email-list" class="email-list">
+                <div class="empty-state">
+                    <p>📭 No emails yet</p>
+                    <p class="hint">Emails sent to your temporary address will appear here</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="email-detail-section" class="card" style="display: none;">
+            <div class="section-header">
+                <button id="back-btn" class="btn-secondary">← Back to Inbox</button>
+                <h2>Email Details</h2>
+            </div>
+
+            <div id="email-detail" class="email-detail">
+                <!-- Email content will be inserted here -->
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Use Temporary Email?</h2>
+            <div class="features">
+                <div class="feature">
+                    <span class="icon">🛡️</span>
+                    <h3>Protect Privacy</h3>
+                    <p>Keep your real email address private and avoid spam</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">⚡</span>
+                    <h3>Instant Setup</h3>
+                    <p>No registration required. Get started in seconds</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">🔒</span>
+                    <h3>Auto-Expire</h3>
+                    <p>Emails automatically delete after expiry time</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">🆓</span>
+                    <h3>Completely Free</h3>
+                    <p>No hidden costs or premium tiers</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 EasyTempInbox. All rights reserved.</p>
+            <nav>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="how-it-works.html">How It Works</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0b"/>
+      <stop offset="100%" style="stop-color:#141416"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Accent line -->
+  <rect x="0" y="0" width="1200" height="4" fill="#3b82f6"/>
+  
+  <!-- Logo/Icon -->
+  <rect x="100" y="200" width="80" height="80" rx="16" fill="#3b82f6"/>
+  <text x="140" y="258" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">E</text>
+  
+  <!-- Title -->
+  <text x="200" y="260" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="white">EasyTempInbox</text>
+  
+  <!-- Tagline -->
+  <text x="100" y="340" font-family="Arial, sans-serif" font-size="32" fill="#a1a1aa">Free Temporary Email Service</text>
+  
+  <!-- Features -->
+  <text x="100" y="420" font-family="Arial, sans-serif" font-size="24" fill="#71717a">✓ No signup required</text>
+  <text x="400" y="420" font-family="Arial, sans-serif" font-size="24" fill="#71717a">✓ Auto-delete</text>
+  <text x="650" y="420" font-family="Arial, sans-serif" font-size="24" fill="#71717a">✓ 100% Free</text>
+  
+  <!-- URL -->
+  <text x="100" y="530" font-family="Arial, sans-serif" font-size="28" fill="#3b82f6">www.easytempinbox.com</text>
+</svg>

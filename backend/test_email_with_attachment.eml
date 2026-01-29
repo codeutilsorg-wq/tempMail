@@ -1,0 +1,43 @@
+From: sender@example.com
+To: test123@easytempinbox.com
+Subject: Test Email with Attachment
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="----=_Part_0_123456789"
+
+------=_Part_0_123456789
+Content-Type: multipart/alternative; boundary="----=_Part_1_123456789"
+
+------=_Part_1_123456789
+Content-Type: text/plain; charset="utf-8"
+
+This is a test email with an attachment.
+
+Please find the attached test file.
+
+Best regards,
+Test Sender
+
+------=_Part_1_123456789
+Content-Type: text/html; charset="utf-8"
+
+<html>
+<body>
+<h2>Test Email with Attachment</h2>
+<p>This is a test email with an <strong>attachment</strong>.</p>
+<p>Please find the attached test file.</p>
+<p>Best regards,<br>Test Sender</p>
+</body>
+</html>
+
+------=_Part_1_123456789--
+
+------=_Part_0_123456789
+Content-Type: text/plain; charset="utf-8"; name="sample.txt"
+Content-Disposition: attachment; filename="sample.txt"
+Content-Transfer-Encoding: base64
+
+VGhpcyBpcyBhIHNhbXBsZSB0ZXh0IGZpbGUgZm9yIHRlc3RpbmcgYXR0YWNobWVudHMuCgpMaW5l
+IDI6IFRoaXMgaXMgc29tZSBtb3JlIGNvbnRlbnQuCkxpbmUgMzogQW5kIGV2ZW4gbW9yZSBjb250
+ZW50Lgo=
+
+------=_Part_0_123456789--

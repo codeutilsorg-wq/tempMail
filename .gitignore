@@ -1,0 +1,57 @@
+# __pycache__
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+*.env
+!.env.example
+
+# AWS
+*.zip
+.aws/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node modules (if using any JS build tools)
+node_modules/
+
+# Lambda dependencies (keep only source files)
+backend/lambda/*
+!backend/lambda/email_parser.py
+backend/api/*
+!backend/api/main.py
+
+# Keep models folder
+!backend/models/
