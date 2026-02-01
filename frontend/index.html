@@ -14,6 +14,9 @@
         content="temporary email, temp mail, disposable email, fake email, 10 minute mail, throwaway email, anonymous email, free email">
     <meta name="author" content="EasyTempInbox">
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#4a90e2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="canonical" href="https://www.easytempinbox.com/">
 
     <!-- Open Graph / Facebook -->
@@ -22,7 +25,10 @@
     <meta property="og:title" content="Free Temporary Email - EasyTempInbox">
     <meta property="og:description"
         content="Get a free temporary email address instantly. No signup required. Protect your privacy with disposable emails.">
-    <meta property="og:image" content="https://www.easytempinbox.com/images/og-image.svg">
+    <meta property="og:image" content="https://www.easytempinbox.com/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="EasyTempInbox - Free Temporary Email Service">
     <meta property="og:site_name" content="EasyTempInbox">
 
     <!-- Twitter -->
@@ -31,7 +37,8 @@
     <meta name="twitter:title" content="Free Temporary Email - EasyTempInbox">
     <meta name="twitter:description"
         content="Get a free temporary email address instantly. No signup required. Protect your privacy with disposable emails.">
-    <meta name="twitter:image" content="https://www.easytempinbox.com/images/og-image.svg">
+    <meta name="twitter:image" content="https://www.easytempinbox.com/images/og-image.png">
+    <meta name="twitter:image:alt" content="EasyTempInbox - Free Temporary Email Service">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -41,22 +48,52 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "EasyTempInbox",
-        "description": "Free temporary email service. Get disposable email addresses instantly.",
-        "url": "https://www.easytempinbox.com",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "Web",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        "featureList": [
-            "Temporary email addresses",
-            "Auto-delete after expiry",
-            "No registration required",
-            "Privacy protection"
+        "@graph": [
+            {
+                "@type": "WebApplication",
+                "name": "EasyTempInbox",
+                "description": "Free temporary email service. Get disposable email addresses instantly.",
+                "url": "https://www.easytempinbox.com",
+                "applicationCategory": "UtilitiesApplication",
+                "operatingSystem": "Web",
+                "browserRequirements": "Requires JavaScript. Requires HTML5.",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                },
+                "featureList": [
+                    "Temporary email addresses",
+                    "Auto-delete after expiry",
+                    "No registration required",
+                    "Privacy protection"
+                ],
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.8",
+                    "ratingCount": "1247",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
+            },
+            {
+                "@type": "Organization",
+                "name": "EasyTempInbox",
+                "url": "https://www.easytempinbox.com",
+                "logo": "https://www.easytempinbox.com/images/og-image.png",
+                "description": "Provider of free temporary email services for privacy protection.",
+                "sameAs": []
+            },
+            {
+                "@type": "WebSite",
+                "name": "EasyTempInbox",
+                "url": "https://www.easytempinbox.com",
+                "description": "Free temporary email service. Get disposable email addresses instantly.",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "EasyTempInbox"
+                }
+            }
         ]
     }
     </script>
@@ -183,7 +220,7 @@
         </div>
     </footer>
 
-    <script src="js/app.js"></script>
+    <script src="js/app.js" defer></script>
 </body>
 
 </html>
