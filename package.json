@@ -1,0 +1,20 @@
+{
+  "name": "easytempinbox-og-generator",
+  "version": "1.0.0",
+  "description": "OG image generator for EasyTempInbox",
+  "main": "generate-og-image.js",
+  "scripts": {
+    "generate-og": "node generate-og-image.js"
+  },
+  "keywords": [
+    "og-image",
+    "social-media",
+    "seo"
+  ],
+  "author": "EasyTempInbox",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^21.11.0",
+    "sharp": "^0.33.2"
+  }
+}
