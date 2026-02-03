@@ -55,3 +55,9 @@ backend/api/*
 
 # Keep models folder
 !backend/models/
+
+# markdown files
+*.md
+
+# MCP configuration (contains credentials)
+.mcp.json
