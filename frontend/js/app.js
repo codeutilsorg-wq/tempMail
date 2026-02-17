@@ -16,10 +16,12 @@ let currentInbox = null;
 let pollingInterval = null;
 let pollingIntervalMs = POLLING_INTERVAL_START;
 let countdownInterval = null;
+let lastRefreshTime = null;
 
 // DOM Elements
 const generateBtn = document.getElementById('generate-btn');
 const copyBtn = document.getElementById('copy-btn');
+const qrBtn = document.getElementById('qr-btn');
 const refreshBtn = document.getElementById('refresh-btn');
 const backBtn = document.getElementById('back-btn');
 const newEmailBtn = document.getElementById('new-email-btn');
@@ -33,13 +35,22 @@ const emailList = document.getElementById('email-list');
 const emailDetailSection = document.getElementById('email-detail-section');
 const emailDetail = document.getElementById('email-detail');
 const ttlSelect = document.getElementById('ttl-select');
+const qrModal = document.getElementById('qr-modal');
+const qrCloseBtn = document.getElementById('qr-close-btn');
+const qrCodeContainer = document.getElementById('qr-code-container');
+const autoRefreshStatus = document.getElementById('auto-refresh-status');
 
 // Event Listeners
 generateBtn.addEventListener('click', createInbox);
 copyBtn.addEventListener('click', copyEmailAddress);
+qrBtn.addEventListener('click', showQRCode);
 refreshBtn.addEventListener('click', refreshInbox);
 backBtn.addEventListener('click', showInboxView);
 newEmailBtn.addEventListener('click', generateNewEmail);
+qrCloseBtn.addEventListener('click', hideQRCode);
+qrModal.addEventListener('click', (e) => {
+    if (e.target === qrModal) hideQRCode();
+});
 
 // Generate new email function
 function generateNewEmail() {
@@ -168,17 +179,60 @@ async function getInboxStatus() {
             return;
         }
 
-        // Update email count
-        emailCount.textContent = data.email_count;
+        // Get current count BEFORE updating
+        const currentCount = parseInt(emailCount.textContent) || 0;
 
-        // If count changed, fetch emails
-        const currentCount = parseInt(emailCount.textContent);
+        // If count changed, fetch emails to update the list
         if (data.email_count !== currentCount) {
             await fetchEmails();
+            // Email count will be updated by fetchEmails()
+
+            // Show notification for new emails (only if count increased)
+            if (data.email_count > currentCount) {
+                showNewEmailNotification(data.email_count - currentCount);
+            }
+        } else {
+            // Just update the count if no change
+            emailCount.textContent = data.email_count;
         }
+
+        // Update refresh status
+        updateRefreshStatus();
 
     } catch (error) {
         console.error('Failed to get inbox status:', error);
+    }
+}
+
+function updateRefreshStatus() {
+    if (!autoRefreshStatus) return;
+
+    lastRefreshTime = Date.now();
+    const statusText = autoRefreshStatus.querySelector('.status-text');
+    if (statusText) {
+        statusText.textContent = 'Just updated';
+
+        // After 2 seconds, show "Auto-refresh active"
+        setTimeout(() => {
+            if (statusText) {
+                statusText.textContent = 'Auto-refresh active';
+            }
+        }, 2000);
+    }
+}
+
+function showNewEmailNotification(count) {
+    const statusText = autoRefreshStatus?.querySelector('.status-text');
+    if (statusText) {
+        const originalText = statusText.textContent;
+        statusText.textContent = `🎉 ${count} new email${count > 1 ? 's' : ''}!`;
+        statusText.style.color = 'var(--success)';
+
+        // Reset after 3 seconds
+        setTimeout(() => {
+            statusText.textContent = originalText;
+            statusText.style.color = '';
+        }, 3000);
     }
 }
 
@@ -343,6 +397,30 @@ function copyEmailAddress() {
     setTimeout(() => {
         copyBtn.textContent = originalText;
     }, 2000);
+}
+
+function showQRCode() {
+    if (!currentInbox) return;
+
+    // Clear previous QR code
+    qrCodeContainer.innerHTML = '';
+
+    // Generate new QR code
+    new QRCode(qrCodeContainer, {
+        text: currentInbox.address,
+        width: 256,
+        height: 256,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+    });
+
+    // Show modal
+    qrModal.style.display = 'flex';
+}
+
+function hideQRCode() {
+    qrModal.style.display = 'none';
 }
 
 function refreshInbox() {
