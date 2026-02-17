@@ -5,10 +5,12 @@ import os
 import sys
 import time
 import boto3
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from mangum import Mangum
 from dotenv import load_dotenv
+from rate_limiter import rate_limit_middleware
 
 # Local testing setup: load config/.env and adjust import paths
 if os.getenv('LOCAL_TESTING') == 'true':
@@ -39,6 +41,58 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Canonical URL redirect middleware
+@app.middleware("http")
+async def redirect_to_canonical(request: Request, call_next):
+    """
+    Redirect all non-canonical URLs to https://www.easytempinbox.com
+    Handles:
+    - http:// -> https://
+    - easytempinbox.com -> www.easytempinbox.com
+    - Any other domain variant -> canonical domain
+
+    Skips redirect for:
+    - Local testing (localhost, 127.0.0.1)
+    - API endpoints (preserve for API consumers)
+    """
+    host = request.headers.get("host", "").lower()
+
+    # Skip redirect for local development
+    if host.startswith("localhost") or host.startswith("127.0.0.1"):
+        return await call_next(request)
+
+    # Canonical domain
+    canonical_host = "www.easytempinbox.com"
+
+    # Check if we need to redirect
+    needs_redirect = False
+    redirect_url = None
+
+    # If host doesn't match canonical, redirect
+    if host and host != canonical_host:
+        # Handle non-www to www redirect
+        if host == "easytempinbox.com":
+            needs_redirect = True
+        # Handle any other domain variants
+        elif "easytempinbox.com" in host:
+            needs_redirect = True
+
+        if needs_redirect:
+            redirect_url = f"https://{canonical_host}{request.url.path}"
+            if request.url.query:
+                redirect_url = f"{redirect_url}?{request.url.query}"
+
+    # Also ensure HTTPS (in case request came through HTTP)
+    if not needs_redirect and request.url.scheme == "http" and not host.startswith("localhost"):
+        redirect_url = str(request.url).replace("http://", "https://", 1)
+        needs_redirect = True
+
+    # Perform redirect if needed
+    if needs_redirect and redirect_url:
+        return RedirectResponse(url=redirect_url, status_code=301)
+
+    return await call_next(request)
 
 # AWS clients
 #dynamodb = boto3.client('dynamodb', region_name=os.getenv('AWS_REGION', 'us-east-1'))
@@ -76,15 +130,21 @@ async def root():
 
 
 @app.post("/api/inbox", response_model=InboxCreateResponse)
-async def create_inbox(request: InboxCreateRequest = InboxCreateRequest()):
+async def create_inbox(request: Request, inbox_request: InboxCreateRequest = InboxCreateRequest()):
     """
     Create a new temporary inbox
-    
+
     Query Parameters:
     - ttl: Time to live in seconds (default: 3600, min: 600, max: 86400)
+
+    Rate Limits:
+    - 5 inbox creations per hour per IP
     """
+    # Check rate limit
+    await rate_limit_middleware(request, 'create_inbox')
+
     # Validate TTL
-    ttl = request.ttl or DEFAULT_TTL
+    ttl = inbox_request.ttl or DEFAULT_TTL
     if ttl < MIN_TTL or ttl > MAX_TTL:
         raise HTTPException(
             status_code=400,
@@ -112,20 +172,26 @@ async def create_inbox(request: InboxCreateRequest = InboxCreateRequest()):
 
 @app.get("/api/inbox/{inbox_id}/emails", response_model=EmailListResponse)
 async def list_emails(
+    request: Request,
     inbox_id: str,
     limit: int = Query(default=20, le=100),
     last_key: str = Query(default=None)
 ):
     """
     List all emails for an inbox
-    
+
     Path Parameters:
     - inbox_id: The inbox ID
-    
+
     Query Parameters:
     - limit: Maximum number of emails to return (default: 20, max: 100)
     - last_key: Pagination key from previous response
+
+    Rate Limits:
+    - 100 requests per minute per IP
     """
+    # Check rate limit
+    await rate_limit_middleware(request, 'general')
     # Check if inbox exists
     try:
         response = dynamodb.get_item(
