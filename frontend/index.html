@@ -19,7 +19,7 @@
     <title>Free Temporary Email - EasyTempInbox | Disposable Email Address</title>
     <meta name="title" content="Free Temporary Email - EasyTempInbox | Disposable Email Address">
     <meta name="description"
-        content="Get a free temporary email address instantly. No signup required. Protect your privacy with disposable emails that auto-delete. Perfect for signups, testing, and avoiding spam.">
+        content="Instant temporary email - no signup, auto-deletes in 10 min. Used by 1000+ users daily to avoid spam. Works in 2 clicks. 100% free & private.">
     <meta name="keywords"
         content="temporary email, temp mail, disposable email, fake email, 10 minute mail, throwaway email, anonymous email, free email">
     <meta name="author" content="EasyTempInbox">
@@ -109,6 +109,9 @@
     </script>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -129,6 +132,7 @@
                 <div class="email-address-container">
                     <input type="text" id="email-address" readonly>
                     <button id="copy-btn" class="btn-secondary">📋 Copy</button>
+                    <button id="qr-btn" class="btn-secondary">📱 QR Code</button>
                 </div>
 
                 <div class="inbox-info">
@@ -170,7 +174,13 @@
         <section id="inbox-section" class="card" style="display: none;">
             <div class="section-header">
                 <h2>📬 Inbox</h2>
-                <button id="refresh-btn" class="btn-secondary">🔄 Refresh</button>
+                <div class="inbox-controls">
+                    <div id="auto-refresh-status" class="auto-refresh-status">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Auto-refresh active</span>
+                    </div>
+                    <button id="refresh-btn" class="btn-secondary">🔄 Refresh</button>
+                </div>
             </div>
 
             <div id="email-list" class="email-list">
@@ -193,27 +203,48 @@
         </section>
 
         <section class="info-section">
-            <h2>Why Use Temporary Email?</h2>
+            <h2>How It Works</h2>
+            <div class="features">
+                <div class="feature">
+                    <span class="icon">1️⃣</span>
+                    <h3>Click Generate</h3>
+                    <p>Get your temporary email address in one click - no signup, no password needed</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">2️⃣</span>
+                    <h3>Use Anywhere</h3>
+                    <p>Copy and use your temp email for signups, verifications, or any site you don't trust</p>
+                </div>
+                <div class="feature">
+                    <span class="icon">3️⃣</span>
+                    <h3>Receive Instantly</h3>
+                    <p>Messages appear in your inbox immediately. Auto-deletes when timer expires</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Choose EasyTempInbox?</h2>
             <div class="features">
                 <div class="feature">
                     <span class="icon">🛡️</span>
-                    <h3>Protect Privacy</h3>
-                    <p>Keep your real email address private and avoid spam</p>
+                    <h3>100% Private</h3>
+                    <p>No tracking, no data collection. Your real email stays protected from spam and data breaches</p>
                 </div>
                 <div class="feature">
                     <span class="icon">⚡</span>
-                    <h3>Instant Setup</h3>
-                    <p>No registration required. Get started in seconds</p>
+                    <h3>Instant & Free</h3>
+                    <p>No registration, no waiting, no premium upsells. Start using in 2 clicks, forever free</p>
                 </div>
                 <div class="feature">
                     <span class="icon">🔒</span>
-                    <h3>Auto-Expire</h3>
-                    <p>Emails automatically delete after expiry time</p>
+                    <h3>Auto-Cleanup</h3>
+                    <p>Emails vanish after expiry (10 min - 24 hrs). No manual deletion needed</p>
                 </div>
                 <div class="feature">
-                    <span class="icon">🆓</span>
-                    <h3>Completely Free</h3>
-                    <p>No hidden costs or premium tiers</p>
+                    <span class="icon">📱</span>
+                    <h3>Works Everywhere</h3>
+                    <p>Desktop, mobile, tablet. QR code support for easy mobile sharing</p>
                 </div>
             </div>
         </section>
@@ -229,6 +260,20 @@
             </nav>
         </div>
     </footer>
+
+    <!-- QR Code Modal -->
+    <div id="qr-modal" class="qr-modal" style="display: none;">
+        <div class="qr-modal-content">
+            <div class="qr-modal-header">
+                <h3>Scan QR Code</h3>
+                <button id="qr-close-btn" class="qr-close-btn">&times;</button>
+            </div>
+            <div class="qr-modal-body">
+                <div id="qr-code-container"></div>
+                <p class="qr-hint">Scan this QR code with your mobile device to copy the email address</p>
+            </div>
+        </div>
+    </div>
 
     <script src="js/app.js" defer></script>
 </body>
